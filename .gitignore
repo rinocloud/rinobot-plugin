@@ -1,0 +1,12 @@
+*.pyc
+.ipynb_checkpoints/
+data/
+venv/
+/rinocloud.egg-info
+/build
+/dist
+/MANIFEST
+error.html
+scratch.py
+.tox/
+.eggs/
