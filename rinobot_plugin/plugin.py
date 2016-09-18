@@ -5,27 +5,6 @@ import numpy as np
 
 
 def loadfile(fpath, skiprows=0, **args):
-    """
-        loadfile(fpath, skiprows=0, **args)
-
-        Loads a file with numpy.loadtxt and will recursively skips headers.
-
-        Parameters
-        ----------
-        fpath : string
-            Path to file to load
-        skiprows : int
-            Number of rows to skip
-        **args
-            Extra arguments for numpy.loadtxt
-
-        Returns
-        -------
-        data : array or None
-            Returns and array is possible
-            and None if no data was found
-    """
-
     delimiter = get_args().delimiter
 
     with warnings.catch_warnings():
@@ -33,10 +12,15 @@ def loadfile(fpath, skiprows=0, **args):
         try:
             return np.loadtxt(fpath, skiprows=skiprows, delimiter=delimiter, **args)
         except ValueError:
-            return loadfile(fpath, skiprows+1)
+            try:
+                return np.loadtxt(fpath, skiprows=skiprows, delimiter=',', **args)
+            except ValueError:
+                try:
+                    return np.loadtxt(fpath, skiprows=skiprows, delimiter='\t', **args)
+                except ValueError:
+                    return loadfile(fpath, skiprows+1)
         except StopIteration:
             return None
-
 
 parser = argparse.ArgumentParser()
 parser.add_argument('filepath', type=str)
