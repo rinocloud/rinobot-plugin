@@ -25,12 +25,15 @@ def loadfile(fpath, skiprows=0, **args):
             Returns and array is possible
             and None if no data was found
     """
+
+    delimiter = get_args().delimiter
+
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         try:
-            return np.loadtxt(fpath, skiprows=skiprows, **args)
+            return np.loadtxt(fpath, skiprows=skiprows, delimiter=delimiter, **args)
         except ValueError:
-            return np.loadtxt(fpath, skiprows+1)
+            return loadfile(fpath, skiprows+1)
         except StopIteration:
             return None
 
@@ -40,6 +43,7 @@ parser.add_argument('filepath', type=str)
 parser.add_argument('--prefix', type=str)
 parser.add_argument('--cols', type=str)
 parser.add_argument('--rows', type=str)
+parser.add_argument('--delimiter', type=str)
 
 
 def reset_parser():
@@ -49,6 +53,7 @@ def reset_parser():
     parser.add_argument('--prefix', type=str)
     parser.add_argument('--cols', type=str)
     parser.add_argument('--rows', type=str)
+    parser.add_argument('--delimiter', type=str)
 
 
 class Args(object):
@@ -56,6 +61,7 @@ class Args(object):
     filepath=None
     cols=None
     rows=None
+    delimiter=" "
 
 
 def add_argument(*args, **kwargs):
