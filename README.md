@@ -147,3 +147,5 @@ python setup.py test
 or, if python 3 is named `python3`
 
 python3 setup.py test
+
+## publishing to pypi
