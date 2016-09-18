@@ -30,7 +30,7 @@ def loadfile(fpath, skiprows=0, **args):
         try:
             return np.loadtxt(fpath, skiprows=skiprows, **args)
         except ValueError:
-            return loadtxt(fpath, skiprows+1)
+            return np.loadtxt(fpath, skiprows+1)
         except StopIteration:
             return None
 

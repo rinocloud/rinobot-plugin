@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name='rinobot_plugin',
     description='Rinobot plugin helpers',
-    version='0.0.2',
+    version='0.0.3',
 
     author='Eoin Murray',
     author_email='eoin@rinocloud.com',
